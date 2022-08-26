@@ -7,6 +7,7 @@ import { StyledTypography } from '../../../components/PersonalInformationForm/in
 import useToken from '../../../hooks/useToken';
 import { getPersonalInformations } from '../../../services/enrollmentApi';
 import TicketSelection from './ticketSelection';
+import PaymentCompleted from './paymentComplete';
 
 export default function Payment() {
   const token = useToken();
@@ -14,6 +15,7 @@ export default function Payment() {
   const [accountComplete, setAccountComplete] = useState(false);
   const [ticketInfo, setTicketInfo] = useState({
     modality: '',
+    finish: false
   });
 
   useEffect(() => {
@@ -38,6 +40,10 @@ export default function Payment() {
       ) : (
         <TicketSelection setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} />
       )}
+      {ticketInfo.finish ? 
+        <PaymentCompleted modality={ticketInfo.modality} /> 
+        : <></>
+      }
     </>
   );
 }
