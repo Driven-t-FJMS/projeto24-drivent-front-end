@@ -10,7 +10,7 @@ export default function HotelSelection(props) {
   function handleHotel() {
     setTicketInfo({
       ...ticketInfo,
-      hotel: true,
+      hotel: 'yes',
     });
     setSelectedHotel(true);
     setNoHotel(false);
@@ -19,7 +19,7 @@ export default function HotelSelection(props) {
   function handleNoHotel() {
     setTicketInfo({
       ...ticketInfo,
-      hotel: false,
+      hotel: 'no',
     });
     setNoHotel(true);
     setSelectedHotel(false);

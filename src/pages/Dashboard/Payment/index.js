@@ -8,6 +8,7 @@ import useToken from '../../../hooks/useToken';
 import { getPersonalInformations } from '../../../services/enrollmentApi';
 import TicketSelection from './ticketSelection';
 import HotelSelection from './hotelSelection';
+import TicketConfirmation from './ticketConfirmation';
 
 export default function Payment() {
   const token = useToken();
@@ -15,7 +16,8 @@ export default function Payment() {
   const [accountComplete, setAccountComplete] = useState(false);
   const [ticketInfo, setTicketInfo] = useState({
     modality: '',
-    hotel: false,
+    hotel: '',
+    complete: false,
   });
 
   useEffect(() => {
@@ -27,23 +29,34 @@ export default function Payment() {
     console.log(promiseUserInfo);
     if (promiseUserInfo) setAccountComplete(true);
   }
-
+  console.log(ticketInfo);
   return (
     <>
       <StyledTypography variant="h4">Ingresso e pagamento</StyledTypography>
-      {!accountComplete ? (
-        <StyledBoxCompleteAccount>
-          <StyledTypographyCompleteAccount>
-            Você precisa completar sua inscrição antes <br /> de prosseguir pra escolha de ingresso
-          </StyledTypographyCompleteAccount>
-        </StyledBoxCompleteAccount>
-      ) : (
-        <TicketSelection setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} />
-      )}
 
-      {ticketInfo.modality === 'presential' ? (
-        <HotelSelection setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} />
-      ) : null}
+      {!ticketInfo.complete ? (
+        <>
+          {!accountComplete ? (
+            <>
+              <StyledBoxCompleteAccount>
+                <StyledTypographyCompleteAccount>
+                  Você precisa completar sua inscrição antes <br /> de prosseguir pra escolha de ingresso
+                </StyledTypographyCompleteAccount>
+              </StyledBoxCompleteAccount>
+            </>
+          ) : (
+            <TicketSelection setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} />
+          )}
+          {ticketInfo.modality === 'presential' ? (
+            <HotelSelection setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} />
+          ) : null}
+          {ticketInfo.modality === 'online' || ticketInfo.hotel === 'yes' || ticketInfo.hotel === 'no' ? (
+            <TicketConfirmation setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} />
+          ) : null}{' '}
+        </>
+      ) : (
+        <Typography>Working</Typography>
+      )}
     </>
   );
 }
