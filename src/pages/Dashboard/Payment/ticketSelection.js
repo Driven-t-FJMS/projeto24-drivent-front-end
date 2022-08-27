@@ -50,6 +50,7 @@ export const StyledTypography = styled(Typography)`
   font-weight: 400;
   font-size: 20px;
   line-height: 23px;
+  padding-top: 20px;
   color: #8e8e8e;
 `;
 
@@ -78,7 +79,7 @@ export const StyledBox = styled(Box)`
   margin-top: 17px;
 `;
 
-const SelectModalityDiv = styled.div`
+export const SelectModalityDiv = styled.div`
   width: 145px;
   height: 145px;
   margin-right: 24px;
