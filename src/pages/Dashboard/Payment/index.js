@@ -9,6 +9,7 @@ import { getPersonalInformations } from '../../../services/enrollmentApi';
 import TicketSelection from './ticketSelection';
 import HotelSelection from './hotelSelection';
 import TicketConfirmation from './ticketConfirmation';
+import PaymentCompleted from './paymentComplete';
 
 export default function Payment() {
   const token = useToken();
@@ -18,6 +19,7 @@ export default function Payment() {
     modality: '',
     hotel: '',
     complete: false,
+    finish: false
   });
 
   useEffect(() => {
@@ -57,6 +59,10 @@ export default function Payment() {
       ) : (
         <Typography>payment page</Typography>
       )}
+      {ticketInfo.finish ? 
+        <PaymentCompleted modality={ticketInfo.modality} /> 
+        : <></>
+      }
     </>
   );
 }
