@@ -44,16 +44,17 @@ export default function TicketSelection(props) {
   );
 }
 
-const StyledTypography = styled(Typography)`
+export const StyledTypography = styled(Typography)`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 23px;
+  padding-top: 20px;
   color: #8e8e8e;
 `;
 
-const PaperTypography1 = styled(Typography)`
+export const PaperTypography1 = styled(Typography)`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
@@ -63,7 +64,7 @@ const PaperTypography1 = styled(Typography)`
   color: #454545;
 `;
 
-const PaperTypography2 = styled(Typography)`
+export const PaperTypography2 = styled(Typography)`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
@@ -73,12 +74,12 @@ const PaperTypography2 = styled(Typography)`
   color: #898989;
 `;
 
-const StyledBox = styled(Box)`
+export const StyledBox = styled(Box)`
   display: flex;
   margin-top: 17px;
 `;
 
-const SelectModalityDiv = styled.div`
+export const SelectModalityDiv = styled.div`
   width: 145px;
   height: 145px;
   margin-right: 24px;
