@@ -52,10 +52,10 @@ export default function Payment() {
           ) : null}
           {ticketInfo.modality === 'online' || ticketInfo.hotel === 'yes' || ticketInfo.hotel === 'no' ? (
             <TicketConfirmation setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} />
-          ) : null}{' '}
+          ) : null}
         </>
       ) : (
-        <Typography>Working</Typography>
+        <Typography>payment page</Typography>
       )}
     </>
   );
