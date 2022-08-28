@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import { StyledTypography, StyledBox, PaperTypography1, PaperTypography2 } from './ticketSelection';
 
+import CardPayment from './cardPayment';
+
 function PaymentCompleted(props) {
-  const { modality } = props;
+  const { setTicketInfo, ticketInfo } = props;
 
   function verifyModality() {
-    if(modality === 'presential') {
+    if (ticketInfo.modality === 'presential') {
       return 'Presencial + Com Hotel';
     }
     return 'Online + Sem Hotel';
@@ -21,9 +23,15 @@ function PaymentCompleted(props) {
         </TicketAndHotelSelected>
       </StyledBox>
       <PaymentArea>Pagamento</PaymentArea>
-      <PaymentConfirmed>
-        <Completed />
-      </PaymentConfirmed>
+      <>
+        {ticketInfo.finish ? (
+          <PaymentConfirmed>
+            <Completed />
+          </PaymentConfirmed>
+        ) : (
+          <CardPayment setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} />
+        )}
+      </>
     </>
   );
 }
