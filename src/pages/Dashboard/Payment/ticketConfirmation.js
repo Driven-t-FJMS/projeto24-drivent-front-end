@@ -30,6 +30,6 @@ export default function TicketConfirmation(props) {
   );
 }
 
-const ConfirmButton = styled(Button)`
+export const ConfirmButton = styled(Button)`
   background-color: #e0e0e0;
 `;

@@ -19,7 +19,7 @@ export default function Payment() {
     modality: '',
     hotel: '',
     complete: false,
-    finish: false
+    finish: false,
   });
 
   useEffect(() => {
@@ -57,12 +57,8 @@ export default function Payment() {
           ) : null}
         </>
       ) : (
-        <Typography>payment page</Typography>
+        <PaymentCompleted setTicketInfo={setTicketInfo} ticketInfo={ticketInfo} />
       )}
-      {ticketInfo.finish ? 
-        <PaymentCompleted modality={ticketInfo.modality} /> 
-        : <></>
-      }
     </>
   );
 }
