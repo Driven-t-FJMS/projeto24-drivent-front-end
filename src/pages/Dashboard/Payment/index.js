@@ -10,12 +10,16 @@ import TicketSelection from './ticketSelection';
 import HotelSelection from './hotelSelection';
 import TicketConfirmation from './ticketConfirmation';
 import PaymentCompleted from './paymentComplete';
+import { getEventInfo } from '../../../services/eventApi';
+import ticketApi from '../../../services/ticketApi';
 
 export default function Payment() {
   const token = useToken();
   const [personalInformations, setPersonalInformations] = useState([]);
   const [accountComplete, setAccountComplete] = useState(false);
   const [ticketInfo, setTicketInfo] = useState({
+    eventId: 0,
+    enrollementId: 0,
     modality: '',
     hotel: '',
     complete: false,
@@ -26,10 +30,35 @@ export default function Payment() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    fetchTicketData();
+  }, [ticketInfo.eventId]);
+
   async function fetchData() {
     const promiseUserInfo = await getPersonalInformations(token);
-    console.log(promiseUserInfo);
+    const promiseEventInfo = await getEventInfo();
+
+    setTicketInfo({ ...ticketInfo, eventId: promiseEventInfo.id, enrollementId: promiseUserInfo.id });
+
     if (promiseUserInfo) setAccountComplete(true);
+  }
+
+  async function fetchTicketData() {
+    const body = { eventId: ticketInfo.eventId, enrollementId: ticketInfo.enrollementId };
+
+    if (body.enrollementId !== 0 && body.eventId !== 0) {
+      const promiseTicketInfo = await ticketApi.getTicket(token, body);
+
+      if (promiseTicketInfo.id) {
+        setTicketInfo({
+          ...ticketInfo,
+          modality: promiseTicketInfo.isPresential ? 'presential' : 'online',
+          hotel: promiseTicketInfo.hasHotel ? 'yes' : 'no',
+          complete: true,
+          finish: promiseTicketInfo.isPaid ? true : false,
+        });
+      }
+    }
   }
   console.log(ticketInfo);
   return (

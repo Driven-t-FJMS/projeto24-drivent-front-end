@@ -87,4 +87,5 @@ const Forms = styled.form`
 
 const BottomCardDiv = styled.div`
   display: flex;
+  gap: 10px;
 `;
