@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import cardImage from '../../../assets/images/card.png';
 import { ConfirmButton } from './ticketConfirmation';
+import ticketApi from '../../../services/ticketApi';
+import useToken from '../../../hooks/useToken';
 
 export default function CardPayment(props) {
+  const token = useToken();
   const { setTicketInfo, ticketInfo } = props;
   const [formsData, setFormsData] = useState({
     cardNumber: '',
@@ -14,12 +18,40 @@ export default function CardPayment(props) {
     cvc: '',
   });
 
-  function handleSubmit() {
-    //TODO: Confirmar pagamento
+  function handleSubmit(e) {
+    e.preventDefault();
+    const valid = checkInput();
+    if (!valid) return;
+    toast('Pagamento realizado com sucesso!');
+
+    const body = { eventId: ticketInfo.eventId, enrollementId: ticketInfo.enrollementId };
+    ticketApi.payTicket(token, body);
+
     setTicketInfo({
       ...ticketInfo,
       finish: true,
     });
+  }
+
+  function checkInput() {
+    if (
+      formsData.cardNumber.length === 16 &&
+      formsData.name.length > 0 &&
+      formsData.validThru.length === 5 &&
+      formsData.cvc.length === 3 &&
+      //check if name has only letters
+      formsData.name.match(/^[a-zA-Z ]+$/) &&
+      //check if validThru is in the format MM/YY
+      formsData.validThru.match(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/) &&
+      //check if cardNumber is only numbers
+      formsData.cardNumber.match(/^[0-9]+$/) &&
+      //check if cvc is only numbers
+      formsData.cvc.match(/^[0-9]+$/)
+    ) {
+      return true;
+    }
+    toast('Preencha todos os campos corretamente');
+    return false;
   }
 
   function handleInputChange(event) {
@@ -38,6 +70,7 @@ export default function CardPayment(props) {
             helperText="E.g.: 49...,51...,36...,37..."
             onChange={handleInputChange}
             type="text"
+            required
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]{16}' }}
           />
           <TextField name="name" label="Name" variant="outlined" onChange={handleInputChange} type="text" />
@@ -48,6 +81,8 @@ export default function CardPayment(props) {
               variant="outlined"
               onChange={handleInputChange}
               type="text"
+              helperText="MM/YY"
+              required
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]{4}' }}
             />
             <TextField
@@ -56,6 +91,7 @@ export default function CardPayment(props) {
               variant="outlined"
               onChange={handleInputChange}
               type="text"
+              required
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]{3}' }}
             />
           </BottomCardDiv>

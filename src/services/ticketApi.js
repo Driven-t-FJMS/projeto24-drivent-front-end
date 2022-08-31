@@ -19,16 +19,12 @@ async function getTicket(token, body) {
   return response.data;
 }
 
-async function payTicket(token, eventId, enrollementId) {
-  const response = await api.put(
-    '/ticket/',
-    { enrollementId, eventId },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+async function payTicket(token, body) {
+  const response = await api.put('/ticket/', body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 }
 
