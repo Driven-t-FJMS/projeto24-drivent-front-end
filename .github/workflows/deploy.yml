@@ -6,6 +6,8 @@ on:
 name: Build and Deploy
 env:
   REACT_APP_API_BASE_URL: /api
+  REACT_APP_GITHUB_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_CLIENT_ID}}
+  REACT_APP_GITHUB_REDIRECT_URI: ${{secrets.REACT_APP_GITHUB_REDIRECT_URI}}
 jobs:
   build:
     runs-on: drivent
