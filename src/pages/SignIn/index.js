@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
@@ -22,6 +22,7 @@ dotenv.config();
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { code, state } = qs.parseUrl(window.location.href).query;
 
   const { loadingSignIn, signIn } = useSignIn();
 
@@ -29,6 +30,12 @@ export default function SignIn() {
   const { setUserData } = useContext(UserContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(code && state === 'protocol-OAuth') {
+      callOfAuthToBackend(code);
+    } else toast('Você não está logado no GitHub');
+  }, [code, state]);
 
   async function callOfAuthToBackend(code) {
     try {
@@ -42,25 +49,17 @@ export default function SignIn() {
   }
 
   async function redirectGitHub() {
-    const { code, state } = qs.parseUrl(window.location.href).query;
-    
-    if (code) callOfAuthToBackend(code);
-    else {
-      const GITHUB_AUTH = 'https://github.com/login/oauth/authorize';
-      const params = {
-        response_type: 'code',
-        client_id: 'c43223d2717448436873',
-        redirect_uri: 'http://localhost:3000/sign-in',
-        scope: 'user public_repo',
-        state: 'protocol-OAuth',
-      };
-  
-      const authorizationUrl = `${GITHUB_AUTH}?${qs.stringify(params)}`;
-      window.location.href = authorizationUrl;
-      
-      if(code && state === 'protocol-OAuth') await callOfAuthToBackend(code);
-      else toast('Autenticação autorizada pelo GitHub!');
-    }
+    const GITHUB_AUTH = 'https://github.com/login/oauth/authorize';
+    const params = {
+      response_type: 'code',
+      client_id: process.env.REACT_APP_GITHUB_CLIENT_ID,
+      redirect_uri: process.env.REACT_APP_GITHUB_REDIRECT_URI,
+      scope: 'user public_repo',
+      state: 'protocol-OAuth',
+    };
+
+    const authorizationUrl = `${GITHUB_AUTH}?${qs.stringify(params)}`;
+    window.location.href = authorizationUrl;
   }
 
   async function submit(event) {
