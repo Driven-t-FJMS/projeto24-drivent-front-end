@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const SectionHotelChoice = styled.section`
   margin: 40px auto;
+  position: relative;
 `;
 
 export const SubtitleSection = styled.p`

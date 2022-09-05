@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const BoxHotel = styled.div`
   padding: 10px;
@@ -9,7 +9,7 @@ export const BoxHotel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: ${({isActive}) => isActive ? 'rgb(254,239,210);' : 'rgba(0, 0, 0, 0.1);'}
+  background-color: ${({ isActive }) => isActive ? 'rgb(254,239,210);' : 'rgba(0, 0, 0, 0.1);'}
 `;
 
 export const Image = styled.div`
@@ -20,6 +20,7 @@ export const Image = styled.div`
   img {
     width: 100%;
     height: 100%;
+	border-radius: 10px;
   }
 `;
 
@@ -37,6 +38,6 @@ export const HotelDataText = styled.p`
     infoType === 'main-title'
       ? 'font-size: 20px; font-weight: bold;'
       : infoType === 'subtitle'
-      ? 'font-size: 13px; font-weight: bold;'
-      : 'font-size: 11px;'}
+        ? 'font-size: 13px; font-weight: bold;'
+        : 'font-size: 11px;'}
 `;
