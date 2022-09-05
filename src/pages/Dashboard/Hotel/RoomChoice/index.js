@@ -31,7 +31,8 @@ export default function RoomChoice() {
     try {
       const headers = { headers: { authorization: 'token' } };
       await createReservation(accommodation, headers);
-	  localStorage.removeItem('selectedHotel');
+      localStorage.removeItem('selectedHotel');
+      localStorage.removeItem('wantToModificate');
     } catch (e) {
       toast(e.message);
       console.log(e);
@@ -42,11 +43,13 @@ export default function RoomChoice() {
       try {
         const jsonHotel = localStorage.getItem('selectedHotel');
         const hotelData = JSON.parse(jsonHotel);
-        const { data } = await getRooms(hotelData.name);
-        setAccommodation({ hotel: hotelData });
-        setData(data);
-        setLoading(false);
-        console.log(data, hotelData);
+        if (jsonHotel) {
+          const { data } = await getRooms(hotelData.name);
+          setAccommodation({ hotel: hotelData });
+          setData(data);
+          setLoading(false);
+          console.log(data, hotelData);
+        }
       } catch (e) {
         toast(e.message);
         console.log(e);

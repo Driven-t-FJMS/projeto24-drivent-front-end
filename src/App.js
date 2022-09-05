@@ -21,6 +21,7 @@ import { UserProvider } from './contexts/UserContext';
 
 import useToken from './hooks/useToken';
 import { HotelProvider } from './contexts/HotelContext';
+import Reserved from './pages/Dashboard/Hotel/Reserved';
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
                   <Route path='subscription' element={<FillSubscription />} />
                   <Route path='payment' element={<Payment />} />
                   <Route path='hotel' element={<Hotel />} />
+                  <Route path='reserved' element={<Reserved />} />
                   <Route path='activities' element={<Activities />} />
                   <Route path='certificate' element={<Certificate />} />
                   <Route
