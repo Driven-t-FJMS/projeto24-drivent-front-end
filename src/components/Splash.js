@@ -1,4 +1,4 @@
-import Loader from 'react-loader-spinner';
+//import Loader from 'react-loader-spinner';
 import styled from 'styled-components';
 
 import Page from './Page';
@@ -8,10 +8,10 @@ import driventLogo from '../assets/images/drivent.png';
 export default function Splash({ loading = false, message = '' }) {
   return (
     <StyledPage background="#FA4098">
-      <Grid>
+      {/*<Grid>
         {loading && <StyledLoader color="#FFFFFF" height={26} width={26} type="Oval" />}
         <img src={driventLogo} alt="Driven.t" />
-      </Grid>
+  </Grid>*/}
       {message && <Message>{message}</Message>}
     </StyledPage>
   );
@@ -34,10 +34,10 @@ const Grid = styled.div`
   }
 `;
 
-const StyledLoader = styled(Loader)`
+/*const StyledLoader = styled(Loader)`
   position: relative;
   top: -4.5px;
-`;
+`;*/
 
 const Message = styled.div`
   font-size: 14px;
