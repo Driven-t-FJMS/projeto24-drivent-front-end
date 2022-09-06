@@ -6,6 +6,7 @@ import { getPersonalInformations } from '../../../services/enrollmentApi';
 import { getEventInfo } from '../../../services/eventApi';
 import ticketApi from '../../../services/ticketApi';
 import { StyledBoxCompleteAccount, StyledTypographyCompleteAccount } from '../Payment/index';
+import EventDays from './eventDays';
 
 export default function Activities() {
   const token = useToken();
@@ -38,7 +39,7 @@ export default function Activities() {
 
     if (body.enrollementId !== 0 && body.eventId !== 0) {
       const promiseTicketInfo = await ticketApi.getTicket(token, body);
-
+      console.log(promiseTicketInfo.isPresential);
       if (promiseTicketInfo.id) {
         setTicketInfo({
           ...ticketInfo,
@@ -60,8 +61,8 @@ export default function Activities() {
             Você precisa ter confirmado pagamento antes <br /> de fazer a escolha de hospedagem
           </StyledTypographyCompleteAccount>
         </StyledBoxCompleteAccount>
-      ) : ticketInfo.isPresential ? (
-        <p>TODO atividades</p>
+      ) : ticketInfo.modality === 'presential' ? (
+        <EventDays ticketInfo={ticketInfo} setTicketInfo={setTicketInfo} />
       ) : (
         <StyledBoxCompleteAccount>
           <StyledTypographyCompleteAccount>
