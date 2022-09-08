@@ -14,6 +14,7 @@ export const RowChoice = styled.div`
 `;
 
 export const SingleChoice = styled.div`
+	position: relative;
     float: left;
     width: 190px;
     height: 42px;

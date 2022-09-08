@@ -8,3 +8,15 @@
 body {
   font-family: "Lexend Deca", sans-serif;
 }
+
+.default-hotel-option{
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.selected-option{
+	background-color: rgb(254,239,210);
+}
+
+.selected-room-option{
+	color: red;
+}
