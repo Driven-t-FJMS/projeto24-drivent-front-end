@@ -60,7 +60,7 @@ export default function Payment() {
       }
     }
   }
-  console.log(ticketInfo);
+
   return (
     <>
       <StyledTypography variant="h4">Ingresso e pagamento</StyledTypography>
@@ -92,14 +92,14 @@ export default function Payment() {
   );
 }
 
-const StyledBoxCompleteAccount = styled(Box)`
+export const StyledBoxCompleteAccount = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 90%;
 `;
 
-const StyledTypographyCompleteAccount = styled(Typography)`
+export const StyledTypographyCompleteAccount = styled(Typography)`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
