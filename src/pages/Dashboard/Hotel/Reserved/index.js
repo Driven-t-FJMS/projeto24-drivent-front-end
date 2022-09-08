@@ -19,9 +19,11 @@ import { useNavigate } from 'react-router-dom';
 export default function Reserved() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [reservationId, setReservationId] = useState(0);
   const navigate = useNavigate();
   const modificateAccommodation = () => {
-    localStorage.setItem('wantToModificate', 'yes');
+    const obj = { wantToModificate: true, reservationId };
+    localStorage.setItem('modification', JSON.stringify(obj));
     navigate('/dashboard/hotel');
   };
   useEffect(() => {
@@ -29,9 +31,9 @@ export default function Reserved() {
       try {
         const headers = { headers: { authorization: 'token' } };
         const { data } = await getReservation(headers);
+        setReservationId(data.id);
         setData(data);
         setLoading(false);
-        console.log(data);
       } catch (e) {
         console.log(e.message);
         navigate('/dashboard/hotel');
@@ -48,7 +50,7 @@ export default function Reserved() {
           <>
             <WrapperRowHotels>
               <RowHotels>
-                <BoxHotel>
+                <BoxHotel className='selected-option'>
                   <Image>
                     <img src={data.hotel.image} alt='Imagem não carregada' />
                   </Image>

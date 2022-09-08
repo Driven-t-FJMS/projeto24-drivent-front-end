@@ -1,29 +1,35 @@
 import { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { BoxHotel, Image, HotelDataSection, HotelDataText } from './styles';
+import {
+  BoxHotel,
+  Image,
+  HotelDataSection,
+  HotelDataText,
+  Wrapper,
+} from './styles';
 import HotelContext from '../../../../contexts/HotelContext';
-export default function SingleHotelOption({
-  hotelData,
-  isActive,
-  setIsActive,
-}) {
+export default function SingleHotelOption({ hotelData }) {
   const { isHotelSelected, setHotelSelected } = useContext(HotelContext);
   const selectOption = (e) => {
-    const { id, name, accommodationType, vacancy } = hotelData;
     try {
-      localStorage.setItem(
-        'selectedHotel',
-        JSON.stringify({ name, accommodationType, vacancy })
-      );
-	  setHotelSelected(true);
+      //e.target.parentElement.classList.add('selected-option');
+      localStorage.removeItem('selectedHotel');
+      localStorage.setItem('selectedHotel', JSON.stringify(hotelData));
+      if (isHotelSelected) {
+        setHotelSelected(false);
+        setHotelSelected(true);
+      } else {
+        setHotelSelected(true);
+      }
     } catch (e) {
       toast(e.message);
       console.log(e);
     }
   };
   return (
-    <BoxHotel isActive={isActive} onClick={selectOption}>
+    <BoxHotel className='default-hotel-option'>
+      <Wrapper onClick={selectOption}></Wrapper>
       <Image>
         <img src={hotelData.image} alt='Imagem não carregada' />
       </Image>

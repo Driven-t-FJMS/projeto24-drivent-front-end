@@ -11,7 +11,6 @@ import { getHotels } from '../../../../services/accommodations';
 import Loading from '../../../../components/Loading';
 
 export default function HotelChoice() {
-  const [selected, setSelected] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -38,8 +37,6 @@ export default function HotelChoice() {
                 <SingleHotelOption
                   key={index}
                   hotelData={item}
-                  isActive={selected}
-                  setIsActive={setSelected}
                 />
               ))}
             </Fragment>

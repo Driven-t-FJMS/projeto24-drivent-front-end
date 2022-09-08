@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const BoxHotel = styled.div`
+  position: relative;
   padding: 10px;
   width: 200px;
   height: 225px;
@@ -9,7 +10,15 @@ export const BoxHotel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: ${({ isActive }) => isActive ? 'rgb(254,239,210);' : 'rgba(0, 0, 0, 0.1);'}
+`;
+
+export const Wrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 `;
 
 export const Image = styled.div`
