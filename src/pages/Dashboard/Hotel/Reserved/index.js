@@ -16,10 +16,12 @@ import { useState, useEffect } from 'react';
 import Loading from '../../../../components/Loading';
 import { getReservation } from '../../../../services/accommodations';
 import { useNavigate } from 'react-router-dom';
+import useToken from '../../../../hooks/useToken';
 export default function Reserved() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [reservationId, setReservationId] = useState(0);
+  const token = useToken();
   const navigate = useNavigate();
   const modificateAccommodation = () => {
     const obj = { wantToModificate: true, reservationId };
@@ -29,7 +31,7 @@ export default function Reserved() {
   useEffect(() => {
     (async() => {
       try {
-        const headers = { headers: { authorization: 'token' } };
+        const headers = { headers: { authorization: token } };
         const { data } = await getReservation(headers);
         setReservationId(data.id);
         setData(data);
@@ -73,7 +75,6 @@ export default function Reserved() {
                         Pessoas no seu quarto:
                       </HotelDataText>
                       <HotelDataText infoType='num-vacancy'>Você</HotelDataText>
-                      {/* modificar */}
                     </div>
                   </HotelDataSection>
                 </BoxHotel>
