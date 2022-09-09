@@ -16,12 +16,14 @@ import {
   getRooms,
 } from '../../../../services/accommodations';
 import { useNavigate } from 'react-router-dom';
+import useToken from '../../../../hooks/useToken';
 export default function RoomChoice() {
   const { isHotelSelected } = useContext(HotelContext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [accommodation, setAccommodation] = useState({});
   const [disabled, setDisabled] = useState(true);
+  const token = useToken();
   const navigate = useNavigate();
   const selectRoom = (room, indexVacancy, element) => {
     element.classList.add('selected-room-option');
@@ -37,7 +39,7 @@ export default function RoomChoice() {
   const reservationRequest = async() => {
     try {
       const modification = localStorage.getItem('modification');
-      const headers = { headers: { authorization: 'token' } };
+      const headers = { headers: { authorization: token } };
       if (modification) {
         const { reservationId } = JSON.parse(modification);
         await changeAccommodation({ ...accommodation, reservationId }, headers);
