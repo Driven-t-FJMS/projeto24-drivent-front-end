@@ -6,10 +6,7 @@ import { IoIosCloseCircleOutline, IoIosLogIn, IoIosCheckmarkCircleOutline } from
 
 import {
   StyledTypography,
-  StyledBox,
-  SelectModalityDiv,
-  PaperTypography1,
-  PaperTypography2,
+  PaperTypography1
 } from '../Payment/ticketSelection';
 import activityApi from '../../../services/activityApi';
 import useToken from '../../../hooks/useToken';
@@ -29,9 +26,7 @@ export default function EventDays(props) {
   }, [reload]);
 
   useEffect(() => {
-    console.log(selectedDay);
     const filteredActivities = activities.filter((activity) => {
-      console.log(activity);
       return new Date(activity.date).toLocaleDateString('pt-BR') === selectedDay;
     });
     setFilterByDay(filteredActivities);
@@ -43,7 +38,7 @@ export default function EventDays(props) {
 
     const body = { enrollentId: ticketInfo.enrollementId, eventId: ticketInfo.eventId };
     const userActivitiesResponse = await activityApi.getUserActivities(token, body);
-    console.log(userActivitiesResponse);
+    
     setUserActivities(userActivitiesResponse);
   }
 
@@ -54,7 +49,7 @@ export default function EventDays(props) {
   async function handleSubscribeActivity(activityId) {
     const body = { activityId: activityId, enrollementId: ticketInfo.enrollementId };
     const subscribe = await activityApi.registerToActivity(token, body);
-    console.log(subscribe);
+    
     if (subscribe) setReload(reload + 1);
   }
 
@@ -97,7 +92,7 @@ function Activities(props) {
   const activities = filteredActivities.filter((activity) => {
     return activity.location === place;
   });
-  console.log(activities);
+  
   return (
     <ActivitiesDiv>
       <StyledTypography>{place}</StyledTypography>

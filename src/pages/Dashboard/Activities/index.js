@@ -39,7 +39,7 @@ export default function Activities() {
 
     if (body.enrollementId !== 0 && body.eventId !== 0) {
       const promiseTicketInfo = await ticketApi.getTicket(token, body);
-      console.log(promiseTicketInfo.isPresential);
+      
       if (promiseTicketInfo.id) {
         setTicketInfo({
           ...ticketInfo,
